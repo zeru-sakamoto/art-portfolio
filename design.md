@@ -1,6 +1,6 @@
 # Design System
 
-Visual reference for the Zeru Sakamoto art portfolio. Source of truth for tokens is `app/globals.css` (`@theme` block) — this file explains *why* and *how to use* them, not just what they are.
+Visual reference for the Zeru Sakamoto art portfolio. Source of truth for tokens is `app/globals.css` (`@theme` block) — this file explains _why_ and _how to use_ them, not just what they are.
 
 ## Direction
 
@@ -8,15 +8,15 @@ Dark gallery shell that gets out of the way of the artwork, with a single cool-b
 
 ## Color
 
-| Token | Value | Usage |
-|---|---|---|
-| `--color-accent` | `#84c3ec` | Links, focus rings, glows, badges, CTA borders, selection. The one color allowed to feel "alive." |
-| `--color-secondary` | `#132637` | Reserved deep navy — defined, not yet used anywhere. Candidate for a future secondary surface/accent before reaching for a new token. |
-| `--color-bg-dark` | `#060c11` | Header, footer, hero, lightbox backdrop — the "outermost" layer. |
-| `--color-bg-medium` | `#14181f` | `<body>` background — the default page surface. |
-| `--color-bg-light` | `#242a33` | Raised surfaces: cards, lightbox panel. One step lighter than the page. |
-| `--color-heading-light` | `#fefbfd` | Headings only. |
-| `--color-paragraph-light` | `#ffffff` | Body text color, almost always dimmed with opacity (`/60`–`/80`) rather than used at full strength. |
+| Token                     | Value     | Usage                                                                                                                                 |
+| ------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `--color-accent`          | `#84c3ec` | Links, focus rings, glows, badges, CTA borders, selection. The one color allowed to feel "alive."                                     |
+| `--color-secondary`       | `#132637` | Reserved deep navy — defined, not yet used anywhere. Candidate for a future secondary surface/accent before reaching for a new token. |
+| `--color-bg-dark`         | `#060c11` | Header, footer, hero, lightbox backdrop — the "outermost" layer.                                                                      |
+| `--color-bg-medium`       | `#14181f` | `<body>` background — the default page surface.                                                                                       |
+| `--color-bg-light`        | `#242a33` | Raised surfaces: cards, lightbox panel. One step lighter than the page.                                                               |
+| `--color-heading-light`   | `#fefbfd` | Headings only.                                                                                                                        |
+| `--color-paragraph-light` | `#ffffff` | Body text color, almost always dimmed with opacity (`/60`–`/80`) rather than used at full strength.                                   |
 
 Convention: text on dark surfaces uses `text-paragraph-light/NN` opacity steps (60, 70, 75, 80) instead of new gray tokens — keep using opacity, don't add gray-scale colors.
 
@@ -34,6 +34,7 @@ Don't introduce a third font family or fall back to system fonts for new UI — 
 - Radii: `--radius-sm` (5px) for small chips/buttons, `--radius-md` (10px) for cards/panels, `--radius-pill` (999px) for badges.
 - Glow shadows (`--shadow-glow-sm/md/lg`) are accent-colored, used on hover/active states and the lightbox panel — this is the only shadow language in the app; no neutral drop-shadows.
 - Borders are typically `border-accent/10` to `border-accent/30` — low-opacity accent borders delineate surfaces instead of solid grays.
+- Page-width shells (`Header`, `Footer`, `CatalogSection`) use `max-w-8xl` (`--container-8xl`, 90rem) rather than Tailwind's stock `max-w-6xl` — use `max-w-8xl` for any new full-width section shell to stay consistent.
 
 ## Motion
 
@@ -47,11 +48,13 @@ Don't introduce a third font family or fall back to system fonts for new UI — 
 
 The OS cursor is hidden on fine-pointer devices (`cursor: none !important` globally); `CustomCursor.tsx` replaces it with a GSAP `quickTo`-driven dot + ring that scales down on press. New interactive elements should not rely on cursor shape (e.g. `cursor-pointer`) to signal interactivity — use the `glow-hover` hover/press treatment instead, since the cursor itself can't communicate it.
 
+`CursorGlowField.tsx` draws the ambient blue clouds behind the hero with inline radial-gradient `backgroundImage` (not `bg-accent/NN` + `blur-*` utilities) so each cloud's falloff can be tuned per-instance. It lives inside the hero's pinned container (tagged `.hero-glow-field`) and is faded out by `HomeExperience`'s scroll timeline alongside the rest of the hero recede.
+
 ## Components
 
 - **Badge** (`components/Badge.tsx`) — pill, accent border, uppercase `font-display`. Used for medium ("digital"/"traditional") and tool tags.
 - **Cards** (`ArtworkCard.tsx`) — `bg-bg-light` surface, `glow-hover`, image fills via `ProtectedImage`.
-- **Lightbox** (`ArtworkLightbox.tsx`) — modal on `bg-bg-dark/90` backdrop with blur, focus-trapped, closes on `Escape`/backdrop click, CSS `@starting-style` for the enter transition (panel scale + fade).
+- **Lightbox** (`ArtworkLightbox.tsx`) — modal on `bg-bg-dark/90` backdrop with blur, focus-trapped, closes on `Escape`/backdrop click. The artwork `<figure>` is keyed by artwork id so prev/next (buttons, or `ArrowLeft`/`ArrowRight`) replay the `.lightbox-figure` crossfade (CSS `@starting-style`, <300ms) and the `.lightbox-caption` detail stagger-in on every navigation, not just on open.
 - **SectionDivider** — wavy SVG seam between the hero and the rest of the page; pass the next section's background color as `fill`.
 
 ## Images
