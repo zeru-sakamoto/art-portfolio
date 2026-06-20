@@ -6,7 +6,7 @@ export default function ToolsSection() {
   return (
     <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
       <div>
-        <h3 className="font-display text-base tracking-wide text-accent uppercase">
+        <h3 className="font-display text-2xl tracking-wide text-accent uppercase">
           {toolsSectionContent.digitalHeading}
         </h3>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -17,7 +17,7 @@ export default function ToolsSection() {
       </div>
 
       <div>
-        <h3 className="font-display text-base tracking-wide text-accent uppercase">
+        <h3 className="font-display text-2xl tracking-wide text-accent uppercase">
           {toolsSectionContent.traditionalHeading}
         </h3>
         <div className="mt-4 flex flex-wrap gap-2">

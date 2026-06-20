@@ -27,7 +27,7 @@ export default function Footer() {
               <span className="text-accent">{siteContent.nameAccent}</span>
             </span>
           </p>
-          <p className="mt-2 max-w-xs text-base text-paragraph-light/70">
+          <p className="mt-2 max-w-md text-base text-paragraph-light/70">
             {footerContent.tagline}
           </p>
         </div>

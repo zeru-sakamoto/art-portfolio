@@ -25,7 +25,8 @@ export const heroContent = {
 };
 
 export const footerContent = {
-  tagline: "Traditional & digital artwork by Zeru Sakamoto.",
+  tagline:
+    "Traditional & digital artwork, because I have to justify my Stationery Hobby.",
   exploreHeading: "Explore",
   connectHeading: "Connect",
   email: { label: "Email", href: "mailto:anzelsakamoto@gmail.com" },

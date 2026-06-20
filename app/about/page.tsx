@@ -21,7 +21,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mt-12">
-        <h2 className="font-display text-lg tracking-wide text-heading-light">
+        <h2 className="font-display text-3xl tracking-wide text-heading-light">
           {aboutContent.toolsHeading}
         </h2>
         <div className="mt-6">

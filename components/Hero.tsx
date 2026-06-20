@@ -15,9 +15,9 @@ interface HeroProps {
 // mobile column; the `lg:` classes switch each tile to an absolutely-positioned, scattered
 // arrangement on the right half of the hero.
 const collageTiles = [
-  "z-20 w-[50%] rotate-[-3deg] lg:absolute lg:left-0 lg:top-0 lg:mt-0 lg:w-[45%]",
-  "z-30 -mt-6 ml-auto w-[55%] rotate-[2deg] lg:absolute lg:right-0 lg:top-[10%] lg:mt-0 lg:ml-0 lg:w-[60%]",
-  "z-10 -mt-6 mr-auto ml-[18%] w-[48%] rotate-[-2deg] lg:absolute lg:bottom-0 lg:left-[35%] lg:mx-0 lg:mt-0 lg:w-[36%]",
+  "z-20 w-[50%] rotate-[-3deg] lg:absolute lg:left-0 lg:top-[9%] lg:mt-0 lg:w-[45%]",
+  "z-30 -mt-6 ml-auto w-[55%] rotate-[2deg] lg:absolute lg:right-[3%] lg:top-[1%] lg:mt-0 lg:ml-0 lg:w-[60%]",
+  "z-10 -mt-6 mr-auto ml-[18%] w-[48%] rotate-[-2deg] lg:absolute lg:top-[50%] lg:left-[35%] lg:mx-0 lg:mt-0 lg:w-[40%]",
 ];
 
 export default function Hero({ featured, onSelect }: HeroProps) {
@@ -33,7 +33,7 @@ export default function Hero({ featured, onSelect }: HeroProps) {
             {heroContent.eyebrow}
           </p>
 
-          <h1 className="mt-6 font-display leading-[0.7] tracking-tight text-heading-light text-hero wrap-anywhere">
+          <h1 className="mt-6 font-display leading-[0.7] tracking-tight text-heading-light text-hero wrap-none">
             <span className="block">{heroContent.heading}</span>
             <span className="block text-accent">
               {heroContent.headingAccent}
