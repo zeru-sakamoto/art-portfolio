@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-accent: #84c3ec;
+  --color-secondary: #132637;
+  --color-bg-light: #242a33;
+  --color-bg-medium: #14181f;
+  --color-bg-dark: #060c11;
+  --color-heading-light: #fefbfd;
+  --color-paragraph-light: #ffffff;
+
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+
+  --shadow-glow-sm: 0px 0px 8px rgba(132, 195, 236, 0.25);
+  --shadow-glow-md: 0px 0px 18px rgba(132, 195, 236, 0.4);
+  --shadow-glow-lg: 0px 0px 24px rgba(132, 195, 236, 0.6);
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+
+  --text-hero: clamp(3rem, 12vw, 9rem);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-superstar);
+  --font-body: var(--font-monocraft);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg-medium);
+  color: var(--color-paragraph-light);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (pointer: fine) {
+  body,
+  body * {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
+  display: none;
+}
+
+@media (pointer: fine) {
+  .custom-cursor {
+    display: block;
+  }
+}
+
+@utility glow-hover {
+  transition:
+    box-shadow 0.3s var(--ease-out-strong),
+    border-color 0.3s var(--ease-out-strong),
+    transform 0.2s var(--ease-out-strong);
+
+  /* Gate hover behind real pointers so touch taps don't get stuck in the hover state */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: var(--shadow-glow-md);
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Tactile press feedback on every pointer type */
+  &:active {
+    transform: scale(0.97);
+    transition-duration: 0.12s;
+  }
+}
+
+/* Shared deep-space backdrop behind hero + gallery. Top resolves to the gallery tone at
+   the bottom so the rising gallery edge is seamless — no hard divider between sections. */
+@utility hero-void {
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 22%, rgba(132, 195, 236, 0.06), transparent 60%),
+    linear-gradient(to bottom, #060c11 0%, #060c11 48%, #0d141d 80%, var(--color-bg-medium) 100%);
+}
+
+/* Faint static pixel-grid texture — echoes the pixel display face. Decorative only. */
+@utility pixel-grid {
+  background-image:
+    linear-gradient(to right, rgba(132, 195, 236, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(132, 195, 236, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at 30% 35%, #000 0%, transparent 75%);
+}
+
+/* Lightbox enter motion: backdrop fades, panel scales up from center (modals stay centered) */
+.lightbox-backdrop {
+  transition: opacity 0.25s var(--ease-out-strong);
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.lightbox-panel {
+  transition:
+    opacity 0.3s var(--ease-out-strong),
+    transform 0.3s var(--ease-out-strong);
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-panel {
+    transition: opacity 0.2s ease;
+
+    @starting-style {
+      transform: none;
+    }
+  }
 }
